@@ -48,6 +48,25 @@ void insert_middle(struct node *head, int key, int data)
     }
 }
 
+void delete_front(struct node *head){
+    struct node *temp = (struct node*)malloc(sizeof(struct node));
+    temp=head;
+    head=head->next;
+    free(temp);
+}
+
+void delete_end(struct node *head){
+    struct node *temp = (struct node*)malloc(sizeof(struct node));
+    struct node *current = (struct node*)malloc(sizeof(struct node));
+    temp=head;
+    current=head;
+    while(current->next!=NULL){
+        current=current->next;
+    }
+    current->next=NULL;
+    free(current);
+}
+
 void display(struct node *head){
     struct node *temp = (struct node*)malloc(sizeof(struct node));
     temp=head;
