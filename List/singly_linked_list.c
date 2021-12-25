@@ -6,20 +6,19 @@ struct node{
     struct node *next;
 };
 
-void insert_front(struct node *head, int a){
+void insert_front(struct node **head, int a){
     struct node *temp = (struct node*)malloc(sizeof(struct node));
     temp->data=a;
-    temp->next=head;
-    head=temp;
+    temp->next=(*head);
+    (*head)=temp;
 }
 
-void insert_back(struct node *head, int a){
+void insert_back(struct node **head, int a){
     struct node *temp = (struct node*)malloc(sizeof(struct node));
-    struct node *current = (struct node*)malloc(sizeof(struct node));
+    struct node *current = *head;
     temp->data=a;
     temp->next=NULL;
     
-    current=head;
     while(current->next!=NULL){
         current=current->next;
     }
@@ -48,47 +47,78 @@ void insert_middle(struct node *head, int key, int data)
     }
 }
 
-void delete_front(struct node *head){
-    struct node *temp = (struct node*)malloc(sizeof(struct node));
-    temp=head;
-    head=head->next;
+void delete_front(struct node **head){
+    struct node *temp = *head;
+
+    if(temp!=NULL){
+    *head=(*head)->next;
     free(temp);
+    }
 }
 
-void delete_end(struct node *head){
-    struct node *temp = (struct node*)malloc(sizeof(struct node));
-    struct node *current = (struct node*)malloc(sizeof(struct node));
-    temp=head;
-    current=head;
-    while(current->next!=NULL){
-        current=current->next;
+void delete_end(struct node **head){
+    struct node *temp = *head;
+    struct node *prev_temp = temp;
+    
+    if(temp!=NULL){
+    while(temp->next!=NULL){
+        prev_temp=temp;
+        temp=temp->next;
     }
-    current->next=NULL;
-    free(current);
+    prev_temp->next=NULL;
+    free(temp);
+    }
+}
+
+void delete_key(struct node **head, int key){
+    struct node *temp = *head, *prev_temp;
+
+    while(temp!=NULL && temp->data==key){
+        *head=temp->next;
+        free(temp);
+        temp=*head;
+    }
+
+    while(temp!=NULL){
+    while(temp!=NULL && temp->data!=key){
+        prev_temp=temp;
+        temp=temp->next;
+    }
+
+    if(temp==NULL){
+        return;
+    }
+
+    prev_temp->next=temp->next;
+    free(temp);
+
+    temp=prev_temp->next;
+    }
 }
 
 void display(struct node *head){
-    struct node *temp = (struct node*)malloc(sizeof(struct node));
-    temp=head;
-    while(temp->next!=NULL){
-        printf("%d->",temp->data);
-        temp=temp->next;
+    while(head!=NULL){
+        printf("%d->",head->data);
+        head=head->next;
     }
-    printf("%d->NULL",temp->data);
+    printf("NULL\n");
 }
+
 int main(){
     struct node *head = (struct node*)malloc(sizeof(struct node));
-    struct node *second = (struct node*)malloc(sizeof(struct node));
-    struct node *third = (struct node*)malloc(sizeof(struct node));
+
     head->data=1;
-    head->next=second;
+    head->next=NULL;
 
-    second->data=2;
-    second->next=third;
+    insert_front(&head,0);
+    insert_back(&head,3);
+    insert_middle(head,1,2);
 
-    third->data=4;
-    third->next=NULL;
-    
-    insert_middle(head,2,3);
-    printf("%d",head->next->next->data);
+    display(head);
+
+    delete_key(&head, 2);
+    delete_front(&head);
+    delete_end(&head);
+
+    display(head);
 }
