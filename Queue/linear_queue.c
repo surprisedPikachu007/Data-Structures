@@ -53,5 +53,3 @@ int main(){
     dequeue();
     display();
 }
-
-//that is stack application
