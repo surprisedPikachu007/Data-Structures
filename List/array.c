@@ -57,7 +57,7 @@ void delete_at_middle(int key){
     }
 
     for(int i=0; i<count; i++){
-        if(arr[i]==key){
+        if(arr[i]==key){                  
             for(int j=i; j<count-1; j++){
                 arr[j]=arr[j+1];
             }
