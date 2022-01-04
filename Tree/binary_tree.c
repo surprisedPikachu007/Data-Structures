@@ -17,24 +17,30 @@ struct node* newnode(int data){
 }
 
 void preorder(struct node *head){
-    if(head==NULL)
+    if(head==NULL){
         return;
+    }
+
     printf("%d ",head->data);
     preorder(head->left);
     preorder(head->right);
 }
 
 void inorder(struct node *head){
-    if(head==NULL)
+    if(head==NULL){
         return;
+    }
+
     inorder(head->left);
     printf("%d ",head->data);
     inorder(head->right);
 }
 
 void postorder(struct node *head){
-    if(head==NULL)
+    if(head==NULL){
         return;
+    }
+
     postorder(head->left);
     postorder(head->right);
     printf("%d ",head->data);
