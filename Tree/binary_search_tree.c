@@ -23,28 +23,73 @@ struct node* newNode(int item)
     return temp;
 }
 
-struct node* insert(struct node* node, int key)
+struct node* insert(struct node* node, int data)
 {
     if (node == NULL)
-        return newNode(key);
+        return newNode(data);
  
-    if (key < node->data)
-        node->left = insert(node->left, key);
-    else if (key > node->data)
-        node->right = insert(node->right, key);
+    if (data < node->data)
+        node->left = insert(node->left, data);
+    else if (data > node->data)
+        node->right = insert(node->right, data);
  
+    return node;
+}
+
+struct node* findmin(struct node* node){
+    if(node->left==NULL)
+        return node;
+    return findmin(node->left);
+}
+
+struct node* findmax(struct node* node){
+    if(node->right==NULL)
+        return node;
+    return findmax(node->right);
+}
+
+struct node* delete(struct node *node, int key){
+    if(node == NULL){
+        return NULL;
+    }
+
+    if(key<node->data){
+        node->left=delete(node->left,key);
+    }
+
+    else if(key>node->data){
+        node->right=delete(node->right,key);
+    }
+
+    else if(node->left && node->right){
+        struct node *temp= findmin(node->right);
+        node->data=temp->data;
+        node->right=delete(node->right,temp->data);
+    }
+
+    else{
+        struct node *temp=node;
+        if(node->left==NULL){
+            node=node->right;
+        }
+        else if(node->right==NULL){
+            node=node->left;
+        }
+        free(temp);
+    }
+
     return node;
 }
 
 
 void search(struct node *head, int data){
     if(head == NULL){
-        printf("Not found\n");
+        printf("%d is Not found\n",data);
         return;
     }
 
     if(data == head->data){
-        printf("Found\n");
+        printf("%d Found\n",data);
         return;
     }
 
@@ -68,6 +113,17 @@ int main(){
     root = insert(root, 4);
     root = insert(root, 1);
     root = insert(root, 6);
+
+    inorder(root);
+    printf("\n");
+    printf("Maximum element: %d\n",findmax(root)->data);
+    printf("Minimum element: %d\n",findmin(root)->data);
+
+    search(root,7);
+    search(root,8);
+
+    root=delete(root,5);
+    root=delete(root,1);
 
     inorder(root);
     printf("\n");
