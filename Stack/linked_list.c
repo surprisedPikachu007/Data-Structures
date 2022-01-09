@@ -43,6 +43,7 @@ void pop(){
 
     head=head->next;
     free(temp);
+    top--l;
 }
 
 void peek(){
@@ -54,9 +55,6 @@ void peek(){
 }
 
 void display(){
-    if(top==-1){
-        printf("Stack Underflow\n");
-        return;
     }
     struct node *temp=head;
     while(temp!=NULL){
