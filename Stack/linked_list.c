@@ -43,6 +43,7 @@ void pop(){
 
     head=head->next;
     free(temp);
+    top--;
 }
 
 void peek(){
