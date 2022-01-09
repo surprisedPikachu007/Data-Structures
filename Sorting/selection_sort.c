@@ -30,7 +30,7 @@ void display(int arr[], int n)
 }
 
 int main(){
-    int arr[10] = {10, 5, 30, 20, 40, 50, 60, 70, 90, 80};
+    int arr[10] = {9, 8, 3, 7, 2, 0, 5, 6, 4, 1};
     selection_sort(arr, 10);
     display(arr, 10);
     return 0;
