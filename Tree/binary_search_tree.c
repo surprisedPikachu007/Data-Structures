@@ -104,15 +104,14 @@ void search(struct node *head, int data){
 
 int main(){
 
-    struct node *root = NULL;
-
-    root = insert(root, 5);
-    root = insert(root, 3);
-    root = insert(root, 7);
-    root = insert(root, 2);
-    root = insert(root, 4);
-    root = insert(root, 1);
-    root = insert(root, 6);
+    struct node *root = insert(NULL, 5);
+    
+    insert(root, 3);
+    insert(root, 7);
+    insert(root, 2);
+    insert(root, 4);
+    insert(root, 1);
+    insert(root, 6);
 
     inorder(root);
     printf("\n");
@@ -122,8 +121,8 @@ int main(){
     search(root,7);
     search(root,8);
 
-    root=delete(root,5);
-    root=delete(root,1);
+    delete(root,5);
+    delete(root,1);
 
     inorder(root);
     printf("\n");
