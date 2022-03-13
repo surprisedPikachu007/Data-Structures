@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 struct node{
     int coeff;
@@ -126,6 +127,20 @@ void clean_poly(struct node **poly){
     }
 }      
 
+void polynomial_evaluation(struct node *poly, int x){
+    struct node *temp = poly;
+    int sum=0;
+    while(temp!=NULL){
+        int power=1;
+        for(int i=0;i<temp->exp;i++){
+            power=power*x;
+        }
+        sum+=(temp->coeff)*power;
+        temp=temp->next;
+    }
+    printf("%d\n",sum);
+}
+
 void display(struct node *head){
     struct node *temp = head;
     while(temp->next!=NULL){
@@ -171,6 +186,9 @@ int main(){
     clean_poly(&mulled_poly);
     printf("\nProduct of the two polynomials: ");
     display(mulled_poly);
+
+    printf("\nPolynomial Evaluation when x=2: ");
+    polynomial_evaluation(poly1, 2);
 
     printf("\n");
 
