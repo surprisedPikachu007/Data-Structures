@@ -11,7 +11,7 @@ void quick_sort(int arr[], int low, int high)
 {
     if (low < high)
     {
-            int pivot = arr[high];
+        int pivot = arr[high];
         int i = low - 1;
         int j = high;
         while (1)
